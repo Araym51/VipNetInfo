@@ -6,17 +6,22 @@ from django.db import models
 class Town(models.Model):
     town_name = models.CharField(verbose_name='Город', max_length=128, unique=True)
 
+    def __str__(self):
+        return f'{self.town_name}'
 
-class Street(models.Model):
-    street = models.CharField(verbose_name='Улица', max_length=128)
-    house_number = models.CharField(verbose_name='номер дома', max_length=64)
-    office_number = models.PositiveIntegerField(verbose_name='номер кабинета')
-    town_name = models.ForeignKey(Town, on_delete=models.CASCADE)
+
+class AdressInfo(models.Model):
+    town_name = models.ForeignKey(to=Town, on_delete=models.CASCADE)
+    address = models.CharField(verbose_name='Улица', max_length=128)
+
+    def __str__(self):
+        return f'{self.town_name} {self.address}'
+
 
 class VipNetInfo(models.Model):
-    WINDOWS_7 = 0
-    WINDOWS_10 = 1
-    ASTRA_LINUX = 2
+    WINDOWS_7 = 'Windows 7'
+    WINDOWS_10 = 'Windows 10'
+    ASTRA_LINUX = 'ASTRA_LINUX'
 
     OS_CHOICES = (
         (WINDOWS_7, 'Windows 7'),
@@ -33,7 +38,8 @@ class VipNetInfo(models.Model):
     pc_mac_address = models.CharField(verbose_name='MAC адрес ПЭВМ', max_length=32)
     kaspersky = models.BooleanField(verbose_name='Начличие антивируса Касперский', default=True)
     vipnet_name = models.CharField(verbose_name='Название VipNet ключа', max_length=64)
-    office_number = models.ForeignKey(Street, on_delete=models.CASCADE)
+    address = models.ForeignKey(to=AdressInfo, on_delete=models.CASCADE)
+    office_number = models.PositiveIntegerField(verbose_name='Номер кабинета')
     #user info
     username = models.EmailField(unique=True)
     first_name = models.CharField(verbose_name='Имя', max_length=150)
