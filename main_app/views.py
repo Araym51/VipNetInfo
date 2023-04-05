@@ -11,4 +11,4 @@ class VipNetInfoListView(TitleMixin, ListView):
     title = 'Список всех пользователей'
     model = VipNetInfo
     template_name = 'pc_list.html'
-    paginate_by = 50
+    ordering = ('-address')
