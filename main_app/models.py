@@ -47,7 +47,7 @@ class VipNetInfo(models.Model):
     fathers_name = models.CharField(verbose_name='Отчество', max_length=150)
     division = models.CharField(verbose_name='Подразделение', max_length=150)
     position = models.CharField(verbose_name='Должность', max_length=150)
-    created = models.BooleanField(verbose_name='Создан', default=False)
+    is_active = models.BooleanField(verbose_name='Активен', default=False)
 
 
 class User(AbstractUser):

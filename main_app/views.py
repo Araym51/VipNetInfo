@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.views.generic import ListView
 
 from .mixins import TitleMixin, UserIsAdminCheckMixin
-
 from .models import VipNetInfo
+
 # Create your views here.
 
 
